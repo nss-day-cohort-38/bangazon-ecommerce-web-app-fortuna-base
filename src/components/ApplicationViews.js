@@ -9,8 +9,12 @@ const ApplicationViews = () => {
     return (
 
         <React.Fragment>
-            <Route exact path="/login" render={props => {
+            <Route exact path="/login/" render={props => {
                 return <Login isAuthenticated={useSimpleAuth.isAuthenticated}  {...props} />
+            }}
+            />
+            <Route exact path="/register/" render={props => {
+                return <Register {...props} />
             }}
             />
         </React.Fragment>
