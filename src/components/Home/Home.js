@@ -5,7 +5,10 @@ const Home = (props) => {
 
 
     return (
-        <Link to="/sellproductform">Sell a product</Link>
+        <div>
+         <Link to="/sellproductform">Sell a product</Link>
+            <input class="form-control" type="text" placeholder="Search" aria-label="Search"></input>
+        </div>
     )
 
 }
