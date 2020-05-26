@@ -56,4 +56,4 @@ const Login = props => {
         </main>
     )
 }
- export default Login
+export default Login
