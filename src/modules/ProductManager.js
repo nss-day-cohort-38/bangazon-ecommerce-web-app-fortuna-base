@@ -15,9 +15,10 @@ export default {
         }).then(resp => resp.json())
     },
     getProduct(productId) {
-        return
+        return fetch(`${url}/products/${productId}`).then(resp => resp.json())
+
+    },
     getAllProducts() {
         return fetch(`${url}/products`).then(resp => resp.json())
     }
-
 }

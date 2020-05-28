@@ -96,7 +96,7 @@ const ProductSellForm = (props) => {
                 {
                     localCheckbox ?
                     <fieldset>
-                        <input type="text" id="location" className="form-control" placeholder="City State" onChange={handleFieldChange}/>
+                        <input type="text" id="location" className="form-control" placeholder="City" onChange={handleFieldChange}/>
                     </fieldset>
                     : null
                 }    
