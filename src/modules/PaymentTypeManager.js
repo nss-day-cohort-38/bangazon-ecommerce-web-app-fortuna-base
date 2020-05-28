@@ -22,5 +22,13 @@ export default{
             },
             body: JSON.stringify(payment)
         }).then(resp => resp.json())
+    },
+    deletePayment(payment) {
+        return fetch (`${baseUrl}/payment_types/${payment}`, {
+            "method": "DELETE",
+            "headers": {
+                "Authorization": `Token ${token}`
+            }
+        })
     }
 }
