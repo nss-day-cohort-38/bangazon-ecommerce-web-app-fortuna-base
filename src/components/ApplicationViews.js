@@ -5,6 +5,8 @@ import Home from "./Home/Home"
 import Register from "./auth/Register"
 import useSimpleAuth from "../hooks/ui/useSimpleAuth"
 import ProductSellForm from "./Product/ProductSellForm"
+import MyAccount from "./Payment/MyAccount"
+import PaymentForm from "./Payment/PaymentForm"
 
 const ApplicationViews = () => {
     return (
@@ -24,6 +26,14 @@ const ApplicationViews = () => {
             />
             <Route exact path="/sellproductform" render={props => {
                 return <ProductSellForm {...props} />
+            }}
+            />
+            <Route exact path="/payment_types" render={props => {
+                return <MyAccount {...props} />
+            }}
+            />
+            <Route exact path="/payment_types/new" render={props => {
+                return <PaymentForm {...props} />
             }}
             />
         </React.Fragment>
