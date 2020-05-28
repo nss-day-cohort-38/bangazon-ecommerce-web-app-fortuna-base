@@ -6,6 +6,8 @@ import Register from "./auth/Register"
 import useSimpleAuth from "../hooks/ui/useSimpleAuth"
 import ProductSellForm from "./Product/ProductSellForm"
 import ProductDetails from "./Product/ProductDetails"
+import MyAccount from "./Payment/MyAccount"
+import PaymentForm from "./Payment/PaymentForm"
 
 const ApplicationViews = () => {
     return (
@@ -28,7 +30,15 @@ const ApplicationViews = () => {
             }}
             />
             <Route exact path="/:ProductId/productdetails" render={props => {
-                return <ProductDetails ProductId={parseInt(props.match.params.ProductId)} {...props} />
+                return <ProductDetails ProductId={parseInt(props.match.params.ProductId)} {...props}/> 
+            }}
+            />
+            <Route exact path="/payment_types" render={props => {
+                return <MyAccount {...props} />
+            }}
+            />
+            <Route exact path="/payment_types/new" render={props => {
+                return <PaymentForm {...props} />
             }}
             />
         </React.Fragment>
