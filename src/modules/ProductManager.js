@@ -13,5 +13,8 @@ export default {
             },
             body: JSON.stringify(product)
         }).then(resp => resp.json())
+    },
+    getProduct(productId) {
+        return
     }
 }
