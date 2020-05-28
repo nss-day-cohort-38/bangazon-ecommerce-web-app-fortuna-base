@@ -4,13 +4,12 @@ import './Home.css'
 
 const ProductCard = props => {
     return (
-        <div className="productCard card container margin-top">
+        <div className="productCard card">
             <div className="text">
-                <p>{props.product.title}</p>
-                <p>{props.product.price}</p>
-                <p>{props.product.description}</p>
-                <p>{props.product.quantity}</p>
-                <p>{props.product.price}</p>
+                <p><b>Product: </b>{props.product.title}</p>
+                <p><b>Price: </b>{props.product.price}</p>
+                <p><b>Description: </b>{props.product.description}</p>
+                <p><b>Quantity: </b>{props.product.quantity}</p>
             </div>
         </div>
     )
