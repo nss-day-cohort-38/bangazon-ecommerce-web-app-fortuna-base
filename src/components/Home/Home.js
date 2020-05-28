@@ -5,7 +5,7 @@ import ProductCard from "./HomeProductCard";
 
 const Home = (props) => {
   const [products, setProducts] = useState([]);
-  const [locationFilter, setLocationFilter] = useState([]);
+  const [locationFilter, setLocationFilter] = useState({ location: "" });
 
   const handleFieldChange = (evt) => {
     const stateToChange = { ...locationFilter };
@@ -17,6 +17,18 @@ const Home = (props) => {
     return ProductManager.getAllProducts().then((ProductsFromAPI) => {
       setProducts(ProductsFromAPI);
     });
+  };
+
+  const searchUseEffect = () => {
+    getFilteredProducts(locationFilter.location);
+  };
+
+  const getFilteredProducts = (location) => {
+    return ProductManager.getFilteredProducts(location).then(
+      (ProductsFromAPI) => {
+        setProducts(ProductsFromAPI);
+      }
+    );
   };
 
   useEffect(() => {
@@ -34,8 +46,10 @@ const Home = (props) => {
             placeholder="Filter by City"
             aria-label="Filter by City"
             onChange={handleFieldChange}
+            id="location"
           ></input>
         </form>
+        <input type="submit" value="submit" onClick={searchUseEffect} />
       </div>
       <div>
         {products.map((product) => (
