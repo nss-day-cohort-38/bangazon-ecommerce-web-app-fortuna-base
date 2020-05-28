@@ -31,9 +31,6 @@ const Home = (props) => {
             
             }
             <div>
-                <Link to="/sellproductform">Sell a product</Link>
-            </div>
-            <div>
                 {products.map(product => (
                     <ProductCard
                         key={product.id}
