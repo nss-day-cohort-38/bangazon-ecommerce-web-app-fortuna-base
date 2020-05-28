@@ -14,11 +14,14 @@ export default {
             body: JSON.stringify(product)
         }).then(resp => resp.json())
     },
+    getProduct(productId) {
+        return fetch(`${url}/products/${productId}`).then(resp => resp.json())
+
+    },
     getAllProducts() {
         return fetch(`${url}/products`).then(resp => resp.json())
     },
     getFilteredProducts(location) {
         return fetch(`${url}/products?location=${location}`).then(resp => resp.json())
     }
-
 }
