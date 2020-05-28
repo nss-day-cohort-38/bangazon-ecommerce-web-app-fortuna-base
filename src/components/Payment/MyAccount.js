@@ -13,6 +13,13 @@ const MyAccount = (props) => {
     }
   };
 
+  const deletePaymentType = (payment) => {
+      if (window.confirm("This will permanently delete your payment info.")) {
+          PaymentTypeManager.deletePayment(payment)
+            .then(getPaymentTypes)
+      }
+  }
+
   useEffect(getPaymentTypes, []);
 
   return (
@@ -29,7 +36,7 @@ const MyAccount = (props) => {
         <hr/>
       <main>
         {paymentTypes.map((paymentType) => (
-          <PaymentTypeCard key={paymentType.id} paymentType={paymentType} />
+          <PaymentTypeCard key={paymentType.id} paymentType={paymentType} deletePaymentType={deletePaymentType} {...props} />
         ))}
       </main>
     </>

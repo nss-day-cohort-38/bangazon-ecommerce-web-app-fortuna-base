@@ -4,9 +4,10 @@ const PaymentTypeCard = props => {
     return (
         <>
         <article>
-            {props.paymentType.merchant_name}<br/>
-            {props.paymentType.account_number}<br/>
-            {props.paymentType.expiration_date}
+           Merchant Name: {props.paymentType.merchant_name}<br/>
+           Account Number: {props.paymentType.account_number}<br/>
+           Expiration Date: {props.paymentType.expiration_date}<br/>
+           <button onClick={() => {props.deletePaymentType(props.paymentType.id)}} >Delete</button>
             <hr/>
         </article>
         </>
