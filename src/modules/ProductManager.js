@@ -13,5 +13,9 @@ export default {
             },
             body: JSON.stringify(product)
         }).then(resp => resp.json())
+    },
+    getAllProducts() {
+        return fetch(`${url}/products`).then(resp => resp.json())
     }
+
 }
