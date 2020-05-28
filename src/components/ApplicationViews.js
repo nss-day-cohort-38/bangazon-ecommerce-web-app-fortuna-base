@@ -5,6 +5,7 @@ import Home from "./Home/Home"
 import Register from "./auth/Register"
 import useSimpleAuth from "../hooks/ui/useSimpleAuth"
 import ProductSellForm from "./Product/ProductSellForm"
+import ProductDetails from "./Product/ProductDetails"
 
 const ApplicationViews = () => {
     return (
@@ -24,6 +25,10 @@ const ApplicationViews = () => {
             />
             <Route exact path="/sellproductform" render={props => {
                 return <ProductSellForm {...props} />
+            }}
+            />
+            <Route exact path="/:ProductId/productdetails" render={props => {
+                return <ProductDetails ProductId={parseInt(props.match.params.ProductId)} {...props} />
             }}
             />
         </React.Fragment>

@@ -4,26 +4,35 @@ import ProductTypeListOptions from "../ProductType/ProductTypeListOptions"
 import ProductManager from '../../modules/ProductManager'
 
 const ProductSellForm = (props) => {
-    const [product, setProduct] = useState({ title: "", price: "", description: "", quantity: "", product_type_id: "" })
+    const [product, setProduct] = useState({ title: "", price: "", description: "", quantity: "", product_type_id: 0, image_path: "", location: ""  })
+    const [localCheckbox, setLocalCheckbox] = useState(false)
     const [selectOptions, setSelectOptions] = useState([])
-    const [listId, setListId] = useState({ id: 0 })
     
+    
+
     const handleFieldChange = (evt) => {
         const stateToChange = { ...product }
         stateToChange[evt.target.id] = evt.target.value
         setProduct(stateToChange)
     }
 
+    const toggleFalseTrue = () => {
+        setLocalCheckbox(!localCheckbox)
+    };
+
+    
+
     const constructNewProduct = (evt) => {
         evt.preventDefault()
 
         if (product.title === "" || product.price === "" || product.description === "" || product.quantity === "") {
             window.alert("Please make sure all fields are filled.")
+        } else if (product.product_type_id === 0) {
+            window.alert("Please select a product type")
         } else {
-            // remove line below
-            product.product_type_id = 1
             ProductManager.addProduct(product)
-            .then(props.history.push("/"))
+                .then(resp => props.history.push(`/${resp.id}/productdetails`))
+                
         }
     }
 
@@ -32,18 +41,15 @@ const ProductSellForm = (props) => {
     }
 
     const handleFocusSelect = (event) => {
-        const stateToChange = { ...listId }
-        stateToChange.id = parseInt(event.target.value)
-        setListId(stateToChange)
+        const stateToChange = { ...product }
+        stateToChange.product_type_id = parseInt(event.target.value)
+        setProduct(stateToChange)
     }
 
     useEffect(() => {
         ProductTypeManager.getAllProductTypes().then(response => setSelectOptions(response))
     }, [])
 
-    useEffect(()=> {
-        setProduct.product_type_id = listId.id
-    }, [listId])
 
     return (
         <main style={{ textAlign: "center" }}>
@@ -66,18 +72,36 @@ const ProductSellForm = (props) => {
                     <input type="text" id="quantity" className="form-control" placeholder="Product Quantity" onChange={handleFieldChange} required />
                 </fieldset>
                 <fieldset>
+                    <label>Image File Path</label>
+                    <input className="form-control" placeholder="Enter file path for product image" type="text" id="image_path" onChange={handleFieldChange}/>
+                </fieldset>
+                <fieldset>
+                    <label>Product Type</label>
                     <select className="custom-select" id="inputGroupSelect01" onChange={handleFocusSelect}>
-                        {selectOptions.length > 0 && selectOptions.map((listObject) =>{
+                        <option value="0" >Please select</option>
+                        {selectOptions.length > 0 && selectOptions.map((listObject) => {
                             return <ProductTypeListOptions
                             key={listObject.id}
                             value={listObject.id}
                             listObject={listObject}
                             {...props}
-                        />})}
+                            />
+                        })}
                     </select>
-                </fieldset>    
+                </fieldset>
                 <fieldset>
-                    <button type="button" onClick={constructNewProduct}>Submit</button>
+                    <input className="form-check-input" type="checkbox" value="" onChange={toggleFalseTrue} id="localCheckbox"/>
+                    <label className="form-check-label" htmlFor="localCheckbox">Local Delivery Available</label>   
+                </fieldset>
+                {
+                    localCheckbox ?
+                    <fieldset>
+                        <input type="text" id="location" className="form-control" placeholder="City State" onChange={handleFieldChange}/>
+                    </fieldset>
+                    : null
+                }    
+                <fieldset>
+                    <button type="button" onClick={constructNewProduct}>Sell</button>
                     <button type="button" onClick={handleCancel}>Cancel</button>
                 </fieldset>
             </form>
