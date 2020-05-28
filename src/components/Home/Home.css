@@ -11,3 +11,12 @@
     text-align: left;
     padding: 15px 0 5px 5px;
 }
+
+.boxShadow {
+    box-shadow: 5px 10px 8px #888888;
+}
+
+.productCard:hover {
+    background-color: #DCDCDC;
+    color: blue;
+}

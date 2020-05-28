@@ -4,7 +4,7 @@ import './Home.css'
 
 const ProductCard = props => {
     return (
-        <div className="productCard card">
+        <div className="productCard card boxShadow">
             <div className="text">
                 <p><b>Product: </b>{props.product.title}</p>
                 <p><b>Price: </b>{props.product.price}</p>
