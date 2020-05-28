@@ -20,5 +20,8 @@ export default {
     },
     getAllProducts() {
         return fetch(`${url}/products`).then(resp => resp.json())
+    },
+    getFilteredProducts(location) {
+        return fetch(`${url}/products?location=${location}`).then(resp => resp.json())
     }
 }
