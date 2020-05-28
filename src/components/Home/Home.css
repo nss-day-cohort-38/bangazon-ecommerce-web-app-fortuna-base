@@ -17,5 +17,6 @@
 }
 
 .productCard:hover {
-    background-color: grey;
+    background-color: #DCDCDC;
+    color: blue;
 }
