@@ -9,7 +9,7 @@ const ProductDetails = (props) => {
 
 
     useEffect(() => {
-        ProductManager.getProduct(props.match.params.ProductId).then(res => setProductDetails(res)).then(console.log(productDetails))
+        ProductManager.getProduct(props.match.params.ProductId).then(res => setProductDetails(res))
     }, [])
 
     return (
