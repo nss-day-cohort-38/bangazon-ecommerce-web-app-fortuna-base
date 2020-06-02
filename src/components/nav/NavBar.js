@@ -1,11 +1,32 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import useSimpleAuth from "../../hooks/ui/useSimpleAuth"
-
+import ProductManager from "../../modules/ProductManager";
 
 const NavBar = props => {
     const { isAuthenticated, logout } = useSimpleAuth()
+    const [productFilter, setProductFilter] = useState({ product: "" })
+
+    const handleFieldChange = (evt) => {
+        const stateToChange = { ...productFilter };
+        stateToChange[evt.target.id] = evt.target.value;
+        setProductFilter(stateToChange);
+    }
+
+    const searchProducts = () => {
+        getProductsByName(productFilter.product).then((productsFromAPI) => {
+            console.log(productsFromAPI)
+            props.history.push({
+                pathname: "/search",
+                state: productsFromAPI
+            })
+        })
+    }
+
+    const getProductsByName = (product) => {
+        return ProductManager.getProductByNameFilter(product)
+    }
 
     return (
         <nav className="navbar navbar-light light-blue flex-md-nowrap p-0 shadow">
@@ -38,6 +59,10 @@ const NavBar = props => {
                         </li>
                         </>
                 }
+                <form>
+                    <input  type="text" placeholder="Search Products" onChange={handleFieldChange} id="product"/>
+                </form>
+                <input type="submit" value="submit" onClick={searchProducts}/>
             </ul>
         </nav>
     )

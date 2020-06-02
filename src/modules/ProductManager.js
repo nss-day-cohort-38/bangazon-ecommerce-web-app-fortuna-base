@@ -16,12 +16,14 @@ export default {
     },
     getProduct(productId) {
         return fetch(`${url}/products/${productId}`).then(resp => resp.json())
-
     },
     getAllProducts() {
         return fetch(`${url}/products`).then(resp => resp.json())
     },
     getFilteredProducts(location) {
         return fetch(`${url}/products?location=${location}`).then(resp => resp.json())
+    },
+    getProductByNameFilter(product) {
+        return fetch(`${url}/products?title=${product}`).then(resp => resp.json())
     }
 }
