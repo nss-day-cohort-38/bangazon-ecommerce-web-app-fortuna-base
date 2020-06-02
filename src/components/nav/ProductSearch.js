@@ -16,7 +16,7 @@ const ProductSearch = (props) => {
 
     useEffect(() => {
         setProducts(props.location.state)
-      }, []);
+    }, [props.location.state]);
 
     const { isAuthenticated } = useSimpleAuth();
 
@@ -40,7 +40,7 @@ const ProductSearch = (props) => {
                     id="location"
                 ></input>
                 </form>
-                <input type="submit" value="submit" />
+                <input type="submit" value="submit"/>
             </div>
             <div>
                 {products.map((product) => (
