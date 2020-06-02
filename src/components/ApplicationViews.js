@@ -9,6 +9,7 @@ import ProductDetails from "./Product/ProductDetails"
 import MyAccount from "./Payment/MyAccount"
 import PaymentForm from "./Payment/PaymentForm"
 import PaymentTypeList from "./Payment/PaymentTypeList"
+import ProductSearch from "./nav/ProductSearch"
 
 const ApplicationViews = () => {
     return (
@@ -44,6 +45,10 @@ const ApplicationViews = () => {
             />
             <Route exact path="/payment_types" render={props => {
                 return <PaymentTypeList {...props} />
+            }}
+            />
+            <Route exact path="/search" render={props => {
+                return <ProductSearch {...props} />
             }}
             />
         </React.Fragment>
