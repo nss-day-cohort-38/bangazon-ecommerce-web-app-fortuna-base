@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react"
 import ProductManager from '../../modules/ProductManager'
 
-
-
 const ProductDetails = (props) => {
 
     const [productDetails, setProductDetails] = useState({ id: "", url: "", title: "", price: "", description: "", quantity: "", product_type_id: 0, image_path: "", location: "" })
@@ -20,12 +18,10 @@ const ProductDetails = (props) => {
             <p>Description: {productDetails.description}</p>
             <p>Quantity: {productDetails.quantity}</p>
             <p>Location: {productDetails.location}</p>
+            <img src={productDetails.image_path} alt="Not working"/>
         </>
 
     )
-
-
-
 }
 
 export default ProductDetails
