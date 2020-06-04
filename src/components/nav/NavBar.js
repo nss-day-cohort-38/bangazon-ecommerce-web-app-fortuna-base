@@ -40,6 +40,7 @@ const NavBar = props => {
                 {
                     isAuthenticated() ?
                         <li className="nav-item">
+                            <Link className="nav-link" to="/myProducts">My Products</Link>
                             <button className="nav-link fakeLink"
                                 onClick={() => {
                                     logout()
