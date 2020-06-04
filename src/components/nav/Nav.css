@@ -1,0 +1,14 @@
+.search {
+    float: right;
+    margin-right: 15px;
+    display: flex;
+}
+
+.button {
+    background-color: skyblue;
+    font-size: 15px;
+}
+
+.input {
+    margin-right: 2px;
+}

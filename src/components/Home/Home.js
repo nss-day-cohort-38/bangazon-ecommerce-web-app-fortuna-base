@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ProductManager from "../../modules/ProductManager";
 import ProductCard from "./HomeProductCard";
 import useSimpleAuth from "../../hooks/ui/useSimpleAuth";
+import "./Home.css"
 
 const Home = (props) => {
   const [products, setProducts] = useState([]);
@@ -43,25 +44,29 @@ const Home = (props) => {
     <>
       <div>
         {isAuthenticated() ? (
-          <button type="button" className="btn btn-success">
-            <Link to="/sellproductform">Sell a product</Link>
-          </button>
+          <div className="sellProdBtn text-center">
+            <button type="button" className="btn btn-primary btn-nice">
+              <Link className="sellProdBtn" to="/sellproductform">Sell a product</Link>
+            </button>
+          </div>
         ) : (
           <h3>Please log in to sell a product</h3>
         )}
-        <form>
-          <input
-            className="form-control"
-            type="text"
-            placeholder="Filter by City"
-            aria-label="Filter by City"
-            onChange={handleFieldChange}
-            id="location"
-          ></input>
-        </form>
-        <input type="submit" value="submit" onClick={searchUseEffect} />
+        <div className="">
+          <form className="form">
+            <input
+              className="form-control locationSearch btn-nice"
+              type="text"
+              placeholder="Filter by City"
+              aria-label="Filter by City"
+              onChange={handleFieldChange}
+              id="location"
+            ></input>
+          </form>
+          <input type="submit" value="Submit" className="btn btn-info btn-nice" onClick={searchUseEffect} />
+        </div>
       </div>
-      <div>
+      <div className="prodCardFlex">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} {...props} />
         ))}
