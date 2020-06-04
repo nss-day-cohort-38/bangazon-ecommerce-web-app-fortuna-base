@@ -7,11 +7,10 @@ export default {
         return fetch(`${url}/products`, {
             method: "POST",
             headers: {
-                "Content-Type": 'application/json',
                 "Accept": "application/json",
                 "Authorization": `Token ${token}`
             },
-            body: JSON.stringify(product)
+            body: product
         }).then(resp => resp.json())
     },
     getProduct(productId) {

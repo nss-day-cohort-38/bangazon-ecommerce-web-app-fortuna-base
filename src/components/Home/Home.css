@@ -2,9 +2,15 @@
     margin-top:25px;
     margin-left: 50px;
     width: 250px;
+}
+
+.prodCardFlex {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    background-color: grey;
+    padding-bottom: 20px;
+    margin-top: 10px;
 }
 
 .text {
@@ -20,3 +26,34 @@
     background-color: #DCDCDC;
     color: blue;
 }
+
+.sellProdBtn {
+    margin-top: 15px;
+    color: black;
+    align-items: center;
+}
+
+.btn-nice {
+    border: 1px solid black;
+    box-shadow: 2px 4px 7px #888888;
+    color: black;
+}
+
+.btn-nice2 {
+    border: 1px solid black;
+    box-shadow: 2px 4px 7px #888888;
+    color: black;
+    height: 32px;
+}
+
+.form {
+    align-items: center;
+}
+
+#location {
+    margin-top: 15px;
+    width: 20%;
+    align-self: center;
+}
+
+
