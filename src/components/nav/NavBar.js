@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import useSimpleAuth from "../../hooks/ui/useSimpleAuth"
 import ProductManager from "../../modules/ProductManager";
+import "./Nav.css"
 
 const NavBar = props => {
     const { isAuthenticated, logout } = useSimpleAuth()
@@ -37,6 +38,9 @@ const NavBar = props => {
                 <li className="nav-item">
                     <Link className="nav-link" to="/my_account">My Account</Link>
                 </li>
+                <li className="nav-item">
+                    <Link className="nav-link" to="/categories">Product Categories</Link>
+                </li>
                 {
                     isAuthenticated() ?
                         <li className="nav-item">
@@ -60,11 +64,14 @@ const NavBar = props => {
                         </li>
                         </>
                 }
-                <form>
-                    <input  type="text" placeholder="Search Products" onChange={handleFieldChange} id="product"/>
-                </form>
-                <input type="submit" value="submit" onClick={searchProducts}/>
+                
             </ul>
+            <div className="search">
+                    <form>
+                        <input className="input" type="text" placeholder="Search Products" onChange={handleFieldChange} id="product"/>
+                    </form>
+                    <input className="button btn btn-info btn-nice2" type="submit" value="Submit" onClick={searchProducts}/>
+                </div>
         </nav>
     )
 }

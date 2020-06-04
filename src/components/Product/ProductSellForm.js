@@ -4,9 +4,10 @@ import ProductTypeListOptions from "../ProductType/ProductTypeListOptions"
 import ProductManager from '../../modules/ProductManager'
 
 const ProductSellForm = (props) => {
-    const [product, setProduct] = useState({ title: "", price: "", description: "", quantity: "", product_type_id: 0, image_path: "", location: ""  })
+    const [product, setProduct] = useState({ title: "", price: "", description: "", quantity: "", product_type_id: 0, location: ""})
     const [localCheckbox, setLocalCheckbox] = useState(false)
     const [selectOptions, setSelectOptions] = useState([])
+    const [image, setImage] = useState({ imageFile: "", image_path: "Choose File"})
     
     
 
@@ -20,17 +21,29 @@ const ProductSellForm = (props) => {
         setLocalCheckbox(!localCheckbox)
     };
 
-    
+    const handleFileUpload = (evt) => {
+        setImage({ imageFile: evt.target.files[0], image_path: evt.target.files[0].name })
+    }
 
     const constructNewProduct = (evt) => {
         evt.preventDefault()
 
-        if (product.title === "" || product.price === "" || product.description === "" || product.quantity === "") {
+        if (product.title === "" || product.price === "" || product.description === "" || product.quantity === "" || image.imageFile === "") {
             window.alert("Please make sure all fields are filled.")
         } else if (product.product_type_id === 0) {
             window.alert("Please select a product type")
         } else {
-            ProductManager.addProduct(product)
+
+            const formData = new FormData()
+            formData.append("image_path", image.imageFile, image.image_path)
+            formData.append("title", product.title)
+            formData.append("price", product.price)
+            formData.append("description", product.description)
+            formData.append("quantity", product.quantity)
+            formData.append("product_type_id", product.product_type_id)
+            formData.append("location", product.location)
+
+            ProductManager.addProduct(formData)
                 .then(resp => props.history.push(`/${resp.id}/productdetails`))
                 
         }
@@ -45,6 +58,8 @@ const ProductSellForm = (props) => {
         stateToChange.product_type_id = parseInt(event.target.value)
         setProduct(stateToChange)
     }
+
+   
 
     useEffect(() => {
         ProductTypeManager.getAllProductTypes().then(response => setSelectOptions(response))
@@ -73,7 +88,8 @@ const ProductSellForm = (props) => {
                 </fieldset>
                 <fieldset>
                     <label>Image File Path</label>
-                    <input className="form-control" placeholder="Enter file path for product image" type="text" id="image_path" onChange={handleFieldChange}/>
+                    <input type="file" id="image_path" onChange={handleFileUpload} required/>
+                    {/* <input className="form-control" placeholder="Enter file path for product image" type="text" id="image_path" onChange={handleFieldChange}/> */}
                 </fieldset>
                 <fieldset>
                     <label>Product Type</label>
