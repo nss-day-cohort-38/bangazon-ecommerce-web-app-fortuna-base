@@ -41,7 +41,11 @@ const OrderForm = (props) => {
     useEffect(() => {
         if (orderInfo.id != "") {
             OrderProductManager.getAllOrderProducts().then(arrayOfOrderProducts => {
-                arrayOfOrderProducts.filter()
+                arrayOfOrderProducts.map(object => {
+                    if (object.id === orderInfo.id) {
+                        return object;
+                    }
+                })
             })
         }
     },[orderInfo])
