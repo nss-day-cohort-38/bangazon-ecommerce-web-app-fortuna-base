@@ -11,7 +11,7 @@ const OrderForm = (props) => {
     const [toggleState, setToggleState] = useState(false)
     const [paymentOptions, setPaymentOptions] = useState([])
     const [orderInfo, setOrderInfo] = useState({id: 0, created_at: "", customer_id: 0, payment_type: 0, products:[] })
-    // const []
+    
 
 
     const handleFocusSelect = (event) => {
@@ -41,23 +41,28 @@ const OrderForm = (props) => {
     },[])
 
     useEffect(() => {
-        setProductsInCart(orderInfo.products)
+        if (orderInfo.customer_id >= 1) {
+        setProductsInCart(orderInfo.products)}
     },[orderInfo])
 
 
     return (
         <>
             <h3>Current Products in Cart</h3>
-            {
-                productsInCart.map(product => {
-                    return <HomeProductCard
-                    key = {productsInCart.indexOf(product)}
-                    product = {product}
-                    {...props}
-                    />
-                })
+            {orderInfo.products.length >= 1
+                ?<div>
+                    {
+                        productsInCart.map(product => {
+                            return <HomeProductCard
+                            key = {productsInCart.indexOf(product)}
+                            product = {product}
+                            {...props}
+                            />
+                        })
+                    }
+                </div>
+                :<p>No items in cart</p>
             }
-            
             <form>
                 <fieldset>
                 {toggleState !== false
@@ -66,7 +71,7 @@ const OrderForm = (props) => {
                             {paymentOptions.length === 0
                             ?<option>No payment types available</option>
                             :paymentOptions.map(paymentObject => {
-                                return <PaymentTypeListOptions 
+                                return <PaymentTypeListOptions
                                 paymentObject ={paymentObject}
                                 handleDeleteProduct={handleDeleteProduct}
                                 key={paymentObject.id}

@@ -6,13 +6,13 @@ export default {
 
     completeOrder(order) {
         return fetch(`${url}/orders/${order.id}`, {
-            method: "PUT",
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
                 "Authorization": `Token ${token}`
             },
-            body: JSON.stringify(order.payment_type_id)
+            body: JSON.stringify(order)
         }).then(resp => resp.json())
     },
     getOrders() {
