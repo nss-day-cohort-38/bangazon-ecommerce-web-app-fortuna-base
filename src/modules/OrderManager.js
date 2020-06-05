@@ -12,7 +12,7 @@ export default {
                 "Accept": "application/json",
                 "Authorization": `Token ${token}`
             },
-            body: JSON.stringify(order)
+            body: JSON.stringify(order.payment_type_id)
         }).then(resp => resp.json())
     },
     getOrders() {

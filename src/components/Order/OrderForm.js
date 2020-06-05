@@ -2,19 +2,17 @@ import React, { useEffect, useState } from "react"
 import PaymentTypeListOptions  from "../Payment/PaymentTypeOptions"
 import OrderManager from "../../modules/OrderManager"
 import OrderProductManager from "../../modules/OrderProductManager"
-
+import PaymentTypeManager from "../../modules/PaymentTypeManager"
+import HomeProductCard from "../Home/HomeProductCard"
 
 const OrderForm = (props) => {
 
     const [productsInCart, setProductsInCart] = useState([])
     const [toggleState, setToggleState] = useState(false)
     const [paymentOptions, setPaymentOptions] = useState([])
-    const [orderInfo, setOrderInfo] = useState({id: "", created_at: "", customer_id: "", payment_type_id: "" })
-    const []
+    const [orderInfo, setOrderInfo] = useState({id: 0, created_at: "", customer_id: 0, payment_type: 0, products:[] })
+    // const []
 
-    const handleToggle = () => {
-        setToggleState(!toggleState)
-    }
 
     const handleFocusSelect = (event) => {
         const stateToChange = { ...orderInfo }
@@ -26,6 +24,9 @@ const OrderForm = (props) => {
         OrderProductManager.deleteProduct(id)
     }
 
+    const handleToggle = () => {
+        setToggleState(!toggleState)
+    }
     
 
     useEffect(() => {
@@ -36,34 +37,33 @@ const OrderForm = (props) => {
                 }
             }
         })
+        PaymentTypeManager.getPaymentTypes().then(resp => setPaymentOptions(resp))
     },[])
 
     useEffect(() => {
-        if (orderInfo.id != "") {
-            OrderProductManager.getAllOrderProducts().then(arrayOfOrderProducts => {
-                arrayOfOrderProducts.map(object => {
-                    if (object.id === orderInfo.id) {
-                        return object;
-                    }
-                })
-            })
-        }
+        setProductsInCart(orderInfo.products)
     },[orderInfo])
+
 
     return (
         <>
             <h3>Current Products in Cart</h3>
-            {/* <ul>
-                {productsInCart.map(productObject =>{
-                    return <ListProduct productObject = {productObject} {...props} />
-                })}
-            </ul>     */}
+            {
+                productsInCart.map(product => {
+                    return <HomeProductCard
+                    key = {productsInCart.indexOf(product)}
+                    product = {product}
+                    {...props}
+                    />
+                })
+            }
             
             <form>
-                {handleToggle == true
-                    ?<fieldset>
+                <fieldset>
+                {toggleState !== false
+                    ?
                         <select onChange={handleFocusSelect}>
-                            {paymentOptions.length == 0
+                            {paymentOptions.length === 0
                             ?<option>No payment types available</option>
                             :paymentOptions.map(paymentObject => {
                                 return <PaymentTypeListOptions 
@@ -75,17 +75,16 @@ const OrderForm = (props) => {
                             />
                             })}
                         </select>
-                    </fieldset>
                     : null
                 }
-                <fieldset>
-                    {handleToggle == false
-                    ?<button type="button" onClick={handleToggle}>Complete Order</button>
-                    :<button type="button" onClick={() => {
-                        OrderManager.completeOrder(orderInfo).then(props.history.push("/"))
-                    }}>Done</button>
-                    }
                 </fieldset>
+                    <fieldset>
+                {
+                    toggleState !== false
+                        ?<button type="button" onClick={() => {OrderManager.completeOrder(orderInfo).then(props.history.push("/"))}}>Done</button>   
+                        :<button type="button" onClick={() => handleToggle()}>Complete Order</button>
+                }    
+                    </fieldset>
             </form>
         </>    
     )

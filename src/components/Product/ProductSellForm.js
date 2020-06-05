@@ -28,7 +28,7 @@ const ProductSellForm = (props) => {
     const constructNewProduct = (evt) => {
         evt.preventDefault()
 
-        if (product.title === "" || product.price === "" || product.description === "" || product.quantity === "") {
+        if (product.title === "" || product.price === "" || product.description === "" || product.quantity === "" || image.imageFile === "") {
             window.alert("Please make sure all fields are filled.")
         } else if (product.product_type_id === 0) {
             window.alert("Please select a product type")
@@ -88,7 +88,7 @@ const ProductSellForm = (props) => {
                 </fieldset>
                 <fieldset>
                     <label>Image File Path</label>
-                    <input type="file" id="image_path" onChange={handleFileUpload}/>
+                    <input type="file" id="image_path" onChange={handleFileUpload} required/>
                     {/* <input className="form-control" placeholder="Enter file path for product image" type="text" id="image_path" onChange={handleFieldChange}/> */}
                 </fieldset>
                 <fieldset>
