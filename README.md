@@ -1,6 +1,6 @@
 ## Welcome to Bangazon
 
-Bangazon is an E-commcerce application that allows users to do the following:
+Bangazon is an E-commerce application that allows users to do the following:
 
 - Sell Products
     - Create new product listings
@@ -19,13 +19,13 @@ Bangazon is an E-commcerce application that allows users to do the following:
 
 # How do you even use this app? Well, follow these quick instructions!
 
-1. Create a directory in your termincal, and `cd` into that directory. From there you need to clone down this repo by using `git clone (ssh_key_here)`.
+1. Create a directory in your terminal, and `cd` into that directory. From there you need to clone down this repo by using `git clone (ssh_key_here)`.
 
 1. In your terminal, you need to enter into that directory you just cloned down using `cd bangazon-ecommerce-web-app-fortuna-base/`.
 
 1. Run `npm install` and wait for all dependencies to be installed.
 
-1. Go to https://github.com/nss-day-cohort-38/bangazon-ecommerce-api-fortuna-base and follow the instructions to setup the API in a seperate directory from the bangazon directory you created on the first instruction.
+1. Go to https://github.com/nss-day-cohort-38/bangazon-ecommerce-api-fortuna-base and follow the instructions to setup the API in a separate directory from the bangazon directory you created on the first instruction.
 
 1. Run `npm start` to start the application.
 
