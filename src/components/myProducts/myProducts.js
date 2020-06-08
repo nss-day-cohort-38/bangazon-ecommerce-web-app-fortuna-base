@@ -18,11 +18,10 @@ const MyProducts = (props) => {
         getProducts();
     }, []);
 
-    console.log(products)
-
 
     return (
         <>
+            <h1>My Products</h1>
             <div>
             {products.map((product) => (
                 <MyProductCard key={product.id} product={product} {...props} />
