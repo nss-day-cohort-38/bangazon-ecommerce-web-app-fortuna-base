@@ -10,6 +10,7 @@ import MyAccount from "./Payment/MyAccount"
 import PaymentForm from "./Payment/PaymentForm"
 import PaymentTypeList from "./Payment/PaymentTypeList"
 import ProductSearch from "./nav/ProductSearch"
+import OrderForm from "./Order/OrderForm"
 import ProductTypeList from "./ProductType/ProductTypeList"
 
 const ApplicationViews = () => {
@@ -52,6 +53,10 @@ const ApplicationViews = () => {
                 return <ProductSearch {...props} />
             }}
             />
+            <Route exact path="/shoppingcart" render={props => {
+                return <OrderForm {...props} />
+            }}
+            />    
             <Route exact path="/categories" render={props => {
                 return <ProductTypeList {...props} />
             }}

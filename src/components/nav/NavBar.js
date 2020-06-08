@@ -44,6 +44,13 @@ const NavBar = props => {
                 {
                     isAuthenticated() ?
                         <li className="nav-item">
+                            <Link className="nav-link" to="/shoppingcart">Shopping Cart</Link>
+                        </li>
+                        : null
+                }    
+                {
+                    isAuthenticated() ?
+                        <li className="nav-item">
                             <button className="nav-link fakeLink"
                                 onClick={() => {
                                     logout()
