@@ -13,6 +13,7 @@ import ProductSearch from "./nav/ProductSearch"
 import OrderForm from "./Order/OrderForm"
 import ProductTypeList from "./ProductType/ProductTypeList"
 import CategoryProductList from "./ProductType/CategoryProductList"
+import MyProducts from "./myProducts/myProducts"
 
 const ApplicationViews = () => {
     return (
@@ -64,6 +65,10 @@ const ApplicationViews = () => {
             />
             <Route exact path="/:productTypeId(\d+)/categories/" render={props => {
                 return <CategoryProductList productTypeId={parseInt(props.match.params.productTypeId)} {...props} />
+            }}
+            />
+            <Route exact path="/myProducts" render={props => {
+                return <MyProducts {...props} />
             }}
             />
         </React.Fragment>
