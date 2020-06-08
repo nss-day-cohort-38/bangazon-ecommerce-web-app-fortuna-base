@@ -11,7 +11,7 @@ const OrderForm = (props) => {
     const [toggleState, setToggleState] = useState(false)
     const [paymentOptions, setPaymentOptions] = useState([])
     const [orderInfo, setOrderInfo] = useState({id: 0, created_at: "", customer_id: 0, payment_type: 0, products:[] })
-    
+    const [reload, setReload] = useState(false)
 
 
     const handleFocusSelect = (event) => {
@@ -27,6 +27,10 @@ const OrderForm = (props) => {
     const handleToggle = () => {
         setToggleState(!toggleState)
     }
+
+    const handleCancelOrder = (id) => {
+        OrderManager.deleteOrder(id).then(setReload(!reload))
+    }
     
 
     useEffect(() => {
@@ -38,7 +42,7 @@ const OrderForm = (props) => {
             }
         })
         PaymentTypeManager.getPaymentTypes().then(resp => setPaymentOptions(resp))
-    },[])
+    },[reload])
 
     useEffect(() => {
         if (orderInfo.customer_id >= 1) {
@@ -89,6 +93,9 @@ const OrderForm = (props) => {
                         ?<button type="button" onClick={() => {OrderManager.completeOrder(orderInfo).then(props.history.push("/"))}}>Done</button>   
                         :<button type="button" onClick={() => handleToggle()}>Complete Order</button>
                 }    
+                    </fieldset>
+                    <fieldset>
+                        <button type="button" onClick={() => {handleCancelOrder(orderInfo.id)}}>Cancel Order</button>
                     </fieldset>
             </form>
         </>    
