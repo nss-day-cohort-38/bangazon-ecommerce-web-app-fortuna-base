@@ -12,6 +12,7 @@ import PaymentTypeList from "./Payment/PaymentTypeList"
 import ProductSearch from "./nav/ProductSearch"
 import OrderForm from "./Order/OrderForm"
 import ProductTypeList from "./ProductType/ProductTypeList"
+import CategoryProductList from "./ProductType/CategoryProductList"
 
 const ApplicationViews = () => {
     return (
@@ -59,6 +60,10 @@ const ApplicationViews = () => {
             />    
             <Route exact path="/categories" render={props => {
                 return <ProductTypeList {...props} />
+            }}
+            />
+            <Route exact path="/:productTypeId(\d+)/categories/" render={props => {
+                return <CategoryProductList productTypeId={parseInt(props.match.params.productTypeId)} {...props} />
             }}
             />
         </React.Fragment>
