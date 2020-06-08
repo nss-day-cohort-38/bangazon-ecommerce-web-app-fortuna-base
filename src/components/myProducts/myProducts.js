@@ -18,6 +18,9 @@ const MyProducts = (props) => {
         getProducts();
     }, []);
 
+    console.log(products)
+
+
     return (
         <>
             <div>
