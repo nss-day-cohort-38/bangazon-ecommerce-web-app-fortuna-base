@@ -44,6 +44,7 @@ const NavBar = props => {
                 {
                     isAuthenticated() ?
                         <li className="nav-item">
+                            <Link className="nav-link" to="/myProducts">My Products</Link>
                             <Link className="nav-link" to="/shoppingcart">Shopping Cart</Link>
                         </li>
                         : null
