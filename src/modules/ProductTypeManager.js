@@ -12,6 +12,16 @@ export default {
             }
         })
             .then(resp => resp.json())
+    },
+    getTypeById(typeId) {
+        return fetch(`${baseUrl}/product_type/${typeId}`, {
+            "method": "GET",
+            "headers": {
+                "Accept": "application/json",
+                "Authorization": `Token ${token}`
+            }
+        })
+            .then(resp => resp.json())
     }
 
 }
