@@ -3,20 +3,23 @@ import PaymentTypeListOptions  from "../Payment/PaymentTypeOptions"
 import OrderManager from "../../modules/OrderManager"
 import OrderProductManager from "../../modules/OrderProductManager"
 import PaymentTypeManager from "../../modules/PaymentTypeManager"
-import HomeProductCard from "../Home/HomeProductCard"
+import OrderFormCard from "./OrderFormCard"
 
 const OrderForm = (props) => {
 
     const [productsInCart, setProductsInCart] = useState([])
+    const [allOrderProducts, setAllOrderProducts] = useState([])
+    const [displayedOrder, setDisplayedOrder] = useState({order_id:0})
     const [toggleState, setToggleState] = useState(false)
     const [paymentOptions, setPaymentOptions] = useState([])
-    const [orderInfo, setOrderInfo] = useState({id: 0, created_at: "", customer_id: 0, payment_type: 0, products:[] })
-    const [reload, setReload] = useState(false)
+    const [orderInfo, setOrderInfo] = useState({id: 0, payment_type: 0})
+    
+    
 
 
     const handleFocusSelect = (event) => {
         const stateToChange = { ...orderInfo }
-        stateToChange.payment_type_id = parseInt(event.target.value)
+        stateToChange.payment_type = parseInt(event.target.value)
         setOrderInfo(stateToChange)
     }
 
@@ -28,38 +31,52 @@ const OrderForm = (props) => {
         setToggleState(!toggleState)
     }
 
-    const handleCancelOrder = (id) => {
-        OrderManager.deleteOrder(id).then(setReload(!reload))
-    }
-    
-
-    useEffect(() => {
-        OrderManager.getOrders().then(arrayOfOrders => {
-            if (arrayOfOrders.length >= 1) {
-                if (arrayOfOrders[0].payment_type_id === null){
-                    setOrderInfo(arrayOfOrders[0])
+    const filterForOrder = () => {
+        const filteredOrders = allOrderProducts.filter(listObject => {
+                return listObject.order.payment_type === null
+                    
                 }
-            }
+        )
+        setProductsInCart(filteredOrders)
+        
+    }
+
+    const handleCancelOrder = (id) => {
+        OrderManager.deleteOrder(id)
+        .then(() => {  
+        OrderProductManager.getAllOrderProducts().then(resp => setAllOrderProducts(resp))
         })
-        PaymentTypeManager.getPaymentTypes().then(resp => setPaymentOptions(resp))
-    },[reload])
+    }
 
     useEffect(() => {
-        if (orderInfo.customer_id >= 1) {
-        setProductsInCart(orderInfo.products)}
-    },[orderInfo])
+        filterForOrder()
+    },[allOrderProducts])
 
+    useEffect(() => {
+        const stateToChange = {...orderInfo}
+        if (productsInCart.length !== 0) {
+        setDisplayedOrder(parseInt(productsInCart[0].order_id))
+        stateToChange.id = parseInt(productsInCart[0].order_id)
+        setOrderInfo(stateToChange)    
+    }
+    },[productsInCart])
+    
+    useEffect(() => {
+        OrderProductManager.getAllOrderProducts().then(resp => setAllOrderProducts(resp))
+        
+        PaymentTypeManager.getPaymentTypes().then(resp => setPaymentOptions(resp))
+    },[])
 
     return (
         <>
             <h3>Current Products in Cart</h3>
-            {orderInfo.products.length >= 1
+            {productsInCart.length >= 1
                 ?<div>
                     {
                         productsInCart.map(product => {
-                            return <HomeProductCard
-                            key = {productsInCart.indexOf(product)}
-                            product = {product}
+                            return <OrderFormCard
+                            key = {product.product_id}
+                            productObject = {product}
                             {...props}
                             />
                         })
@@ -72,6 +89,7 @@ const OrderForm = (props) => {
                 {toggleState !== false
                     ?
                         <select onChange={handleFocusSelect}>
+                            <option>Select a card</option>
                             {paymentOptions.length === 0
                             ?<option>No payment types available</option>
                             :paymentOptions.map(paymentObject => {

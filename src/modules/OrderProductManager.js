@@ -8,7 +8,7 @@ export default {
             "method": "GET",
             "headers": {
                 "Accept": "application/json",
-                "Authorization": `Token $${token}`
+                "Authorization": `Token ${token}`
             }
         })
         .then(response => response.json())
