@@ -17,5 +17,13 @@ export default {
     },
     getOrders() {
         return fetch(`${url}/orders`).then(resp => resp.json())
+    },
+    deleteOrder(orderId) {
+        return fetch (`${url}/orders/${orderId}`, {
+            "method": "DELETE",
+            headers: {
+                "Authorization": `Token ${token}`
+            }
+        })
     }
 }
